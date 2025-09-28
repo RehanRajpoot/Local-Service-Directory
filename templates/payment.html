@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container my-5 text-center">
+  <h2>Complete Your Payment</h2>
+  <p>Registration Fee: <strong>PKR {{ amount }}</strong></p>
+  <p>Scan this EasyPaisa QR or follow instructions to pay:</p>
+
+  <!-- Replace with actual QR from EasyPaisa -->
+  <img src="{{ url_for('static', filename='easypaisa-qr.png') }}" alt="EasyPaisa QR" style="max-width:300px;">
+  <p>After payment, click below:</p>
+
+  <form method="POST" action="{{ url_for('payment_callback') }}">
+    <input type="hidden" name="status" value="success"> <!-- Testing only -->
+    <input type="hidden" name="transaction_id" value="TEST123"> <!-- Testing -->
+    <button class="btn btn-success">I Have Paid</button>
+  </form>
+</div>
+{% endblock %}

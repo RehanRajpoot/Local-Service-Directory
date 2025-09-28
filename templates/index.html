@@ -1,0 +1,137 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container my-5">
+
+    <!-- Hero Section with Search -->
+    <div class="hero-image position-relative" style="height: 350px; border-radius: 20px; overflow: hidden;">
+        <img src="{{ url_for('static', filename='hero.webp') }}" alt="Hero" class="w-100 h-100 object-fit-cover">
+        <div class="overlay d-flex flex-column justify-content-center align-items-center text-center p-3 position-absolute top-0 start-0 w-100 h-100">
+            
+            <!-- Search Glass Card -->
+            <div class="glass-card p-4 mb-4 w-100" style="max-width: 800px;">
+                <h2 class="text-center mb-3">Find Local Experts</h2>
+                <form method="GET" action="{{ url_for('search') }}" class="row g-2 align-items-center justify-content-center">
+                    
+                    <!-- Category Dropdown -->
+                    <div class="col-lg-4 col-md-6 col-12">
+                        <select name="category" class="form-control" required>
+                            <option value="">Select Category</option>
+                            {% for c in categories %}
+                                <option value="{{ c.name }}">{{ c.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <!-- City Input -->
+                    <div class="col-lg-4 col-md-6 col-12">
+                        <input type="text" name="city" class="form-control" placeholder="Enter City" required>
+                    </div>
+
+                    <!-- Search Button -->
+                    <div class="col-lg-2 col-md-6 col-12">
+                        <button type="submit" class="btn w-100 mt-2 mt-md-0">Search</button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Categories Section -->
+    <h3 class="mt-5 mb-3 text-center">Categories</h3>
+    <div class="row g-3">
+        {% for cat in categories %}
+        <div class="col-lg-4 col-md-6 col-12">
+            <a href="{{ url_for('search', category=cat.name) }}" class="glass-card text-center p-3 text-decoration-none d-block">
+                <h5>{{ cat.name }}</h5>
+                {% if cat.name == 'AC Repair' %}
+                    <img src="{{ url_for('static', filename='Ac Repair.jpg') }}" alt="{{ cat.name }}" class="img-fluid rounded mb-2">
+                {% elif cat.name == 'Carpenter' %}
+                    <img src="{{ url_for('static', filename='carpenter.jpg') }}" alt="{{ cat.name }}" class="img-fluid rounded mb-2">
+                {% elif cat.name == 'Cleaner' %}
+                    <img src="{{ url_for('static', filename='cleaner.jpg') }}" alt="{{ cat.name }}" class="img-fluid rounded mb-2">
+                {% elif cat.name == 'Electrician' %}
+                    <img src="{{ url_for('static', filename='Electrician.jpg') }}" alt="{{ cat.name }}" class="img-fluid rounded mb-2">
+                {% elif cat.name == 'Event Planner' %}
+                    <img src="{{ url_for('static', filename='event planner.jpg') }}" alt="{{ cat.name }}" class="img-fluid rounded mb-2">
+                {% elif cat.name == 'Gardner' %}
+                    <img src="{{ url_for('static', filename='gardner.jpg') }}" alt="{{ cat.name }}" class="img-fluid rounded mb-2">
+                {% elif cat.name == 'Mechanic' %}
+                    <img src="{{ url_for('static', filename='mechanic.jpg') }}" alt="{{ cat.name }}" class="img-fluid rounded mb-2">
+                {% elif cat.name == 'Painter' %}
+                    <img src="{{ url_for('static', filename='painter.jpg') }}" alt="{{ cat.name }}" class="img-fluid rounded mb-2">
+                {% elif cat.name == 'Plumber' %}
+                    <img src="{{ url_for('static', filename='plumber.jpg') }}" alt="{{ cat.name }}" class="img-fluid rounded mb-2">
+                {% elif cat.name == 'Tutor' %}
+                    <img src="{{ url_for('static', filename='tutor.jpg') }}" alt="{{ cat.name }}" class="img-fluid rounded mb-2">
+                {% elif cat.image %}
+                    <img src="{{ url_for('static', filename='category_images/' ~ cat.image) }}" alt="{{ cat.name }}" class="img-fluid rounded mb-2">
+                {% else %}
+                    <img src="{{ url_for('static', filename='category_images/placeholder.jpg') }}" alt="{{ cat.name }}" class="img-fluid rounded mb-2">
+                {% endif %}
+            </a>
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- Latest Providers -->
+    <h3 class="mt-5 mb-3 text-center">Latest Providers</h3>
+    <div class="row g-3">
+        {% for provider in latest_providers %}
+        <div class="col-lg-4 col-md-6 col-12">
+            <div class="glass-card p-3">
+                <h5>{{ provider.name }}</h5>
+                <p>{{ provider.description }}</p>
+                <p><strong>Contact:</strong> {{ provider.contact }}</p>
+                <p><strong>City:</strong> {{ provider.city }}</p>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+</div>
+
+<!-- Additional CSS for transparency, hover & responsiveness -->
+<style>
+.hero-image img {
+    object-fit: cover;
+}
+
+.glass-card {
+    background: rgba(0,0,0,0.25);
+    backdrop-filter: blur(12px);
+    border-radius: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #fff;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+.glass-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+}
+.glass-card img {
+    max-height: 150px;
+    object-fit: cover;
+    width: 100%;
+}
+.btn {
+    background-color: rgba(255,255,255,0.3);
+    color: #fff;
+}
+.btn:hover {
+    background-color: rgba(255,255,255,0.5);
+    color: #000;
+}
+
+@media (max-width: 767px) {
+    .glass-card h2 {
+        font-size: 20px;
+    }
+    .btn {
+        font-size: 14px;
+    }
+}
+</style>
+
+{% endblock %}

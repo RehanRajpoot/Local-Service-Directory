@@ -1,0 +1,148 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<style>
+/* Full-page gradient background and flex center */
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+}
+
+/* Scrollable content for small screens */
+.page-wrapper {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+/* Glass card */
+.glass-card {
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(20px);
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    padding: 40px;
+    width: 100%;
+    max-width: 480px;
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    color: #fff;
+    box-sizing: border-box;
+}
+
+.glass-card h2 {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 28px;
+}
+
+/* Inputs and textareas */
+.glass-card input,
+.glass-card select,
+.glass-card textarea {
+    width: 100%;
+    padding: 12px 15px;
+    margin-bottom: 15px;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    background: rgba(255, 255, 255, 0.2);
+    color: #fff;
+    font-size: 14px;
+    outline: none;
+    box-sizing: border-box;
+}
+
+.glass-card input::placeholder,
+.glass-card textarea::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.glass-card button {
+    width: 100%;
+    padding: 12px;
+    border-radius: 10px;
+    border: none;
+    background: rgba(255, 255, 255, 0.3);
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.glass-card button:hover {
+    background: rgba(255, 255, 255, 0.5);
+}
+
+.flash-message {
+    text-align: center;
+    margin-bottom: 15px;
+    font-size: 14px;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 576px) {
+    .glass-card {
+        padding: 25px 20px;
+        max-width: 100%;
+    }
+
+    .glass-card h2 {
+        font-size: 22px;
+    }
+
+    .glass-card input,
+    .glass-card select,
+    .glass-card textarea {
+        font-size: 13px;
+        padding: 10px 12px;
+    }
+
+    .glass-card button {
+        font-size: 15px;
+        padding: 10px;
+    }
+}
+</style>
+
+<div class="page-wrapper">
+    <div class="glass-card">
+        <h2>Provider Registration</h2>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="flash-message alert alert-{{ category }}">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+        {% endwith %}
+
+        <form method="POST">
+            <input type="text" name="name" placeholder="Full Name" value="{{ form.name or '' }}" required>
+            
+            <select name="category" required>
+                <option value="">Select Category</option>
+                {% for c in categories %}
+                    <option value="{{ c.name }}" {% if form.category == c.name %}selected{% endif %}>{{ c.name }}</option>
+                {% endfor %}
+            </select>
+
+            <textarea name="description" placeholder="Description (optional)">{{ form.description or '' }}</textarea>
+
+            <input type="text" name="contact" placeholder="Phone / Email" value="{{ form.contact or '' }}" required>
+            <input type="text" name="city" placeholder="City" value="{{ form.city or '' }}" required>
+            <input type="text" name="price_range" placeholder="Price Range" value="{{ form.price_range or '' }}">
+            
+            <p style="font-size: 14px; margin-bottom: 5px;">
+                Send Rs. 2000 via EasyPaisa to <strong>03115939025</strong> and enter Transaction ID below:
+            </p>
+            <input type="text" name="transaction_id" placeholder="EasyPaisa Transaction ID" value="{{ form.transaction_id or '' }}" required>
+
+            <button type="submit">Submit Registration</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="card">
+  <div class="card-body">
+    <h3>{{ p.name }}</h3>
+    <h6 class="text-muted">{{ p.category }} — {{ p.city }}</h6>
+    <p>{{ p.description or 'No description provided.' }}</p>
+    <p><strong>Contact:</strong> <a href="tel:{{ p.contact }}">{{ p.contact }}</a></p>
+    {% if p.price_range %}<p><strong>Price Range:</strong> {{ p.price_range }}</p>{% endif %}
+    <p class="text-muted small">Listed on {{ p.created_at.strftime('%Y-%m-%d %H:%M') }}</p>
+    <a href="tel:{{ p.contact }}" class="btn btn-success">Call</a>
+  </div>
+</div>
+{% endblock %}

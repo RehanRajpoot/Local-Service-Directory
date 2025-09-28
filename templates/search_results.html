@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block content %}
+<h4>Search results</h4>
+<p class="text-muted small">Category: <strong>{{ category or 'Any' }}</strong> | City: <strong>{{ city or 'Any' }}</strong></p>
+<div class="row">
+  {% for p in providers %}
+  <div class="col-md-6">
+    <div class="card mb-3">
+      <div class="card-body">
+        <h5 class="card-title">{{ p.name }}</h5>
+        <h6 class="card-subtitle mb-2 text-muted">{{ p.category }} — {{ p.city }}</h6>
+        <p class="card-text">{{ p.description[:180] }}{% if p.description|length > 180 %}...{% endif %}</p>
+        <p class="mb-1"><strong>Contact:</strong> <a href="tel:{{ p.contact }}">{{ p.contact }}</a></p>
+        {% if p.price_range %}<p class="mb-1"><strong>Price:</strong> {{ p.price_range }}</p>{% endif %}
+        <a href="{{ url_for('provider_detail', provider_id=p.id) }}" class="btn btn-sm btn-outline-primary">View</a>
+      </div>
+    </div>
+  </div>
+  {% else %}
+  <div class="col-12"><p class="text-muted">No matching providers found.</p></div>
+  {% endfor %}
+</div>
+{% endblock %}

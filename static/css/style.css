@@ -1,0 +1,58 @@
+body {
+    background: #000; /* black background for contrast */
+    color: #fff;
+}
+
+.glass-card {
+    background: rgba(255, 255, 255, 0.15); /* transparent white */
+    backdrop-filter: blur(15px);
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    color: #fff;
+}
+
+.glass-card h2, .glass-card h5 {
+    color: #fff;
+}
+
+.glass-card input,
+.glass-card select,
+.glass-card textarea {
+    width: 100%;
+    padding: 10px 15px;
+    margin-bottom: 15px;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    background: rgba(255, 255, 255, 0.2);
+    color: #fff;
+    font-size: 14px;
+}
+
+.glass-card input::placeholder,
+.glass-card textarea::placeholder {
+    color: #e0e0e0;
+}
+
+.glass-card button {
+    width: 100%;
+    padding: 12px;
+    border-radius: 10px;
+    border: none;
+    background: rgba(255, 255, 255, 0.3);
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.glass-card button:hover {
+    background: rgba(255, 255, 255, 0.5);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .glass-card form .col-md-4, .glass-card form .col-md-2 {
+        margin-bottom: 10px;
+    }
+}
